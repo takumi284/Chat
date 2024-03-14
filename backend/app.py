@@ -1,6 +1,6 @@
 # Flaskアプリ内のコード
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -16,9 +16,15 @@ CORS(app)
 #     ]
 #     return jsonify(data)
 
-@app.route('/')
-def hello():
+@app.route('/api/chat')
+def chat():
     return "Hello from Flask!"
+
+@app.route('/api/submit', methods=['POST'])
+def submit_text():
+    text = request.form['text']
+    # ここで受け取ったテキストに対する処理を行う
+    return 'Text submitted: ' + text
 
 if __name__ == '__main__':
     app.run(debug=True)
